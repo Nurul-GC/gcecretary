@@ -1,0 +1,46 @@
+QWidget{
+    font-family: "cambria";
+    font-size: 11pt;
+}
+QMenuBar{
+    color: "black";
+}
+QMenuBar:item::selected{
+    background-color: "antiquewhite";
+    color: "gray";
+}
+QMenu{
+    background-color: "antiquewhite";
+    color: "black";
+}
+QMenu::selected{
+    background-color: "antiquewhite";
+    color: "gray";
+}
+QMessageBox{
+    background-color: "antiquewhite";
+    color: "black";
+}
+QPushButton{
+    padding: 6px;
+    border-radius: 3px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: "black";
+    background-color: "antiquewhite";
+    color: "black";
+}
+QPushButton::hover{
+    background-color: "antiquewhite";
+    color: "gray";
+}
+QLineEdit{
+    padding: 5px;
+    border-radius: 3px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: "black";
+    background-color: "antiquewhite";
+    color: "gray";
+}
+
