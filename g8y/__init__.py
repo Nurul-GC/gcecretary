@@ -14,10 +14,11 @@ def initwindow():
     def iniciar():
         load = 0
         while load < 100:
-            janela.showMessage(f"Loading Modules: {load}%", align, Qt.GlobalColor.white)
+            janela.showMessage(f"Loading: {load}%", align, Qt.GlobalColor.black)
             sleep(0.5)
             load += randint(2, 10)
         janela.close()
+        app.janelaprincipal.show()
 
     img = QPixmap("./favicon/favicon-512x512.png")
     align = int(Qt.AlignmentFlag.AlignBottom | Qt.AlignmentFlag.AlignHCenter | Qt.AlignmentFlag.AlignAbsolute)
@@ -32,10 +33,11 @@ class G8Y:
         self.hora = None
         self.labelHora = None
         self.gcapp = QApplication(argv)
-        # QFontDatabase.addApplicationFont()
+        QFontDatabase.addApplicationFont("./font/lifesavers.ttf")
 
         self.janelaprincipal = QMainWindow()
         self.janelaprincipal.setWindowTitle("GCecretary - File Organizer")
+        self.janelaprincipal.setWindowIcon(QIcon("./favicon/favicon-512x512.png"))
         self.janelaprincipal.setFixedSize(QSize(600, 300))
         self.janelaprincipal.setStyleSheet(theme)
 
@@ -71,7 +73,6 @@ class G8Y:
         self.layout_principal()
         self.janelaprincipal.setMenuBar(menu)
         self.janelaprincipal.setCentralWidget(self.ferramentas)
-        self.janelaprincipal.show()
 
     def _sobre(self):
         QMessageBox.information(self.janelaprincipal, "About",
@@ -139,5 +140,5 @@ class G8Y:
 if __name__ == '__main__':
     theme = open("./theme/g8y.qss").read().strip()
     app = G8Y()
-    # initwindow()
+    initwindow()
     app.gcapp.exec()
