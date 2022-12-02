@@ -1,6 +1,6 @@
 <div align="center">
 
-# ![gcecretary-icon](./g8y/favicon/favicon-512x512.png)
+# <img alt="gcecretary-icon" height="192" src="./g8y/favicon/favicon-512x512.png" width="192"/>
 
 
     This is a utility script that help users organizing their files easily.
