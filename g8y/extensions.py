@@ -76,7 +76,7 @@ def get_all():
     return extensions
 
 
-def is_music(extension):
+def is_music(extension: str):
     res = False
     if extension in music_exts:
         res = True
