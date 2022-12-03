@@ -30,8 +30,10 @@ def initwindow():
 
 class G8Y:
     def __init__(self):
+        self.dirtorganize = None
         self.hora = None
         self.labelHora = None
+
         self.gcapp = QApplication(argv)
         QFontDatabase.addApplicationFont("./font/lifesavers.ttf")
 
@@ -117,12 +119,13 @@ class G8Y:
         layout.addWidget(mainlabel)
 
         hlayout = QHBoxLayout()
-        dirtorganize = QLineEdit()
-        dirtorganize.setPlaceholderText("Search the folder to be organized, and get its location..")
-        dirtorganize.setToolTip("As soon we get the folder, the main job will begin!")
-        dirtorganize.setReadOnly(True)
+        self.dirtorganize = QLineEdit()
+        self.dirtorganize.setPlaceholderText("Search the folder to be organized, and get its location..")
+        self.dirtorganize.setToolTip("As soon we get the folder, the main job will begin!")
+        self.dirtorganize.setReadOnly(True)
         locatedirbtn = QPushButton("Search Folder")
-        hlayout.addWidget(dirtorganize)
+        locatedirbtn.clicked.connect(self.getdir)
+        hlayout.addWidget(self.dirtorganize)
         hlayout.addWidget(locatedirbtn)
         layout.addLayout(hlayout)
 
@@ -135,6 +138,17 @@ class G8Y:
         layout.addWidget(website)
 
         self.ferramentas.setLayout(layout)
+
+    def getdir(self):
+        foldername = QFileDialog.getExistingDirectory(
+            self.janelaprincipal,
+            caption="Search the folder to be organized, and get its location.."
+        )
+        self.dirtorganize.setText(foldername)
+        try:
+            move_files(foldername)
+        except Exception as error:
+            print(error)
 
 
 if __name__ == '__main__':
