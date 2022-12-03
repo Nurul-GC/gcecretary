@@ -1,13 +1,6 @@
 """
-This a utility script to help users organize their files without stress.
-It goes through a folder and check all files and organize them per type.
-Modules Used:
-
-- shutil: provides utilities and functions for copying,
-  archiving files and directory's tree.
-- os: allows us to work with directories, files and so on.
-- sys: This module provides access to some objects and functions
-  used by the interpreter and to interact with the system.
+This a utility script to help users organize their files easily.
+It goes through a folder and check all the files and organize them per type.
 """
 
 from getpass import getuser
@@ -88,54 +81,26 @@ def create_extdir(_ext_found: list):
             makedirs(folders_name[6], exist_ok=True)
 
 
-def create_mainfolder():
-    """
-        This is the function that creates a new main folder
-        if the script was never ran in the context folder.
-
-        If the script has already ran into this folder or there are no files except "the program",
-        it will inform the user that there are no files to organize.
-    """
-    msg = "All good.."
-    totalfiles = 0
-    current_path = getcwd()
+def move_files(_destination: str):
     extensions_found = []
+    for file in listdir(_destination):
+        if path.isfile(file):
+            if exts.get_exts(file) not in extensions_found:
+                extensions_found.append(exts.get_exts(file))
+        makedirs(path.join(_destination, main_folder), exist_ok=True)
+        create_extdir(extensions_found)
 
-    if current_path not in folder_exceptions:
-        for i in listdir(current_path):
-            if path.isfile(i):
-                if exts.get_exts(i) not in extensions_found:
-                    extensions_found.append(exts.get_exts(i))
-                totalfiles += 1
-        if totalfiles > 0:
-            makedirs(main_folder, exist_ok=True)
-            chdir(path.join(current_path, main_folder))
-            create_extdir(extensions_found)
+        if exts.is_music(file):
+            move(f"{_destination}/{file}", f"{_destination}/{main_folder}/{folders_name[0]}")
+        if exts.is_image(file):
+            move(f"{_destination}/{file}", f"{_destination}/{main_folder}/{folders_name[1]}")
+        if exts.is_video(file):
+            move(f"{_destination}/{file}", f"{_destination}/{main_folder}/{folders_name[2]}")
+        if exts.is_doc(file):
+            move(f"{_destination}/{file}", f"{_destination}/{main_folder}/{folders_name[3]}")
+        if exts.is_compacted(file):
+            move(f"{_destination}/{file}", f"{_destination}/{main_folder}/{folders_name[4]}")
+        if exts.is_executable(file):
+            move(f"{_destination}/{file}", f"{_destination}/{main_folder}/{folders_name[5]}")
         else:
-            msg = "[!!!] - No files to organize!"
-    else:
-        msg = "[!!!] - Access denied - You can not organize this folder!"
-    return msg
-
-
-def move_files(_file: str, _destination: str):
-    """
-    This is the function that move the files into their apropriate folder.
-    It also replaces duplicated files.
-
-    :param _file: The file to be copied as a string type.
-    :param _destination: The name of the folder where the file must be copied, as string.
-
-    - Return: This function does not return any value.
-    """
-
-    msg = create_mainfolder()
-    destin = path.join(getcwd(), main_folder, _destination)
-    source = path.join(getcwd(), _file)
-
-    if _file in listdir(destin):
-        msg = f"The file {_file} already exists in the destination folder!\nPassing..."
-        pass
-    else:
-        move(source, destin)
-    return msg
+            move(f"{_destination}/{file}", f"{_destination}/{main_folder}/{folders_name[6]}")
